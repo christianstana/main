@@ -26,18 +26,4 @@ jobs:
         env:
           SOME_SECRET: ${{ secrets.SOME_SECRET }}
         run: python main.py
-          
-      - name: commit files
-        run: |
-          git config --local user.email "christianalosant@gmail.com"
-          git config --local user.name "Christian Alonso"
-          git add -A
-          git diff-index --quiet HEAD || (git commit -a -m "updated logs" --allow-empty)
-          
-      - name: push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          repository: 'main' # Reemplaza con tu nombre de usuario y nombre del repositorio
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          fetch-depth: 0
 
