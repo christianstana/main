@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04.1
     steps:
 
       - name: checkout repo content
@@ -37,5 +37,6 @@ jobs:
       - name: push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
-          github_token: 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
-          branch: main 
+          repository: 'main' # Reemplaza con tu nombre de usuario y nombre del repositorio
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          fetch-depth: 0
