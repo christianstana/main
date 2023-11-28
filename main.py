@@ -6,6 +6,11 @@ def es_primo(numero):
             return False
     return True
 
+def test_es_primo():
+    assert es_primo(2) == True
+    assert es_primo(4) == False
+    assert es_primo(17) == True
+
 def main():
     try:
         numero = int(input("Ingrese un número entero positivo: "))
