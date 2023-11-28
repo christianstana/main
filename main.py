@@ -11,18 +11,6 @@ def test_es_primo():
     assert es_primo(4) == False
     assert es_primo(17) == True
 
-def main():
-    try:
-        numero = int(input("Ingrese un número entero positivo: "))
-        if numero < 0:
-            print("Por favor, ingrese un número positivo.")
-        else:
-            if es_primo(numero):
-                print(f"{numero} es un número primo.")
-            else:
-                print(f"{numero} no es un número primo.")
-    except ValueError:
-        print("Por favor, ingrese un número entero válido.")
-
 if __name__ == "__main__":
-    main()
+    test_es_primo()
+
