@@ -45,17 +45,6 @@ jobs:
       env:
         GITHUB_WORKSPACE: ${{ github.workspace }}
 
-  post:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Check test results
-      run: cat $GITHUB_WORKSPACE/test_results.txt
-      id: check_test_results
-
     - name: Publish to README.txt
       run: |
         if [ "$(grep -c 'Tests failed' $GITHUB_WORKSPACE/test_results.txt)" -gt 0 ]; then
@@ -65,4 +54,5 @@ jobs:
         else
           echo "# Tests Passed (v1.0.1)" > README.txt
         fi
-      if: always()  # Esta línea asegura que esta acción se ejecute incluso si los pasos anteriores fallan
+
+
