@@ -79,3 +79,10 @@ jobs:
         fi
       if: always()  # Esta línea asegura que esta acción se ejecute incluso si los pasos anteriores fallan
 
+    - name: Commit and push changes
+      run: |
+        git config --global user.email "christianalosant@gmail.com"
+        git config --global user.name "Christian Alonso"
+        git add README.txt
+        git commit -m "Update README.txt with test results"
+        git push
