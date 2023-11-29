@@ -12,5 +12,5 @@ def test_es_primo():
     assert es_primo(17) == True
 
 if __name__ == "__main__":
-    test_es_primo
+    test_es_primo()
 
