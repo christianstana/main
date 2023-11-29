@@ -52,9 +52,21 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Check if test results exist
+      id: check_file
+      run: |
+        if [ -f $GITHUB_WORKSPACE/test_results.txt ]; then
+          echo "::set-output name=exists::true"
+        else
+          echo "::set-output name=exists::false"
+        fi
+      env:
+        GITHUB_WORKSPACE: ${{ github.workspace }}
+
     - name: Check test results
       run: cat $GITHUB_WORKSPACE/test_results.txt
       id: check_test_results
+      if: steps.check_file.outputs.exists == 'true'
 
     - name: Publish to README.txt
       run: |
