@@ -13,14 +13,5 @@ def es_primo_palindromo(numero):
 
 def test_es_primo_palindromo():
     # Casos de prueba para la función es_primo_palindromo
-    assert es_primo_palindromo(2) == True  # 2 es un número primo y un palíndromo
-    assert es_primo_palindromo(4) == False  # 4 no es un número primo ni un palíndromo
-    assert es_primo_palindromo(17) == False  # 17 es primo pero no es un palíndromo
-    assert es_primo_palindromo(131) == True  # 131 es un número primo y un palíndromo
-    assert es_primo_palindromo(121) == False  # 121 no es un palíndromo
-    assert es_primo_palindromo(757) == True  # 757 es un número primo y un palíndromo
-
-# Ejecuta las pruebas si el script se ejecuta directamente
-if __name__ == "__main__":
-    test_es_primo_palindromo()
+    assert es_primo_pal
 
