@@ -41,6 +41,6 @@ jobs:
       id: test
       run: |
         set -e
-        pytest main.py -vv > $GITHUB_WORKSPACE/test_results.txt || echo "Tests failed" >> $GITHUB_WORKSPACE/test_results.txt
+        pytest main.py -vv
       env:
         GITHUB_WORKSPACE: ${{ github.workspace }}
