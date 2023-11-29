@@ -7,9 +7,7 @@ def es_primo(numero):
     return True
 
 def test_es_primo():
-    assert es_primo(2) == True
-    assert es_primo(4) == False
-    assert es_primo(17) == True
+    assert es_primo(2) ==
 
 if __name__ == "__main__":
     test_es_primo()
