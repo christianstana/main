@@ -1,0 +1,68 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python application
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+
+    - name: Install dependencies
+      run: |
+        set -e
+        python -m pip install --upgrade pip
+        pip install flake8 pytest
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Lint with flake8
+      run: |
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+    - name: Test with pytest
+      id: test
+      run: |
+        set -e
+        pytest main.py -vv > $GITHUB_WORKSPACE/test_results.txt || echo "Tests failed" >> $GITHUB_WORKSPACE/test_results.txt
+      env:
+        GITHUB_WORKSPACE: ${{ github.workspace }}
+
+  post:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Check test results
+      run: cat $GITHUB_WORKSPACE/test_results.txt
+      id: check_test_results
+
+    - name: Publish to README.txt
+      run: |
+        if [ "$(grep -c 'Tests failed' $GITHUB_WORKSPACE/test_results.txt)" -gt 0 ]; then
+          echo "# Tests Failed" > README.txt
+          echo "Tests failed on the following commit:" >> README.txt
+          git log -1 --pretty=format:"%H - %an, %ar : %s" >> README.txt
+        else
+          echo "# Tests Passed (v1.0.1)" > README.txt
+        fi
+      if: always()  # Esta línea asegura que esta acción se ejecute incluso si los pasos anteriores fallan
